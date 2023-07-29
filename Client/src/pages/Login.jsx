@@ -8,12 +8,14 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const { setUser } = useContext(UserContext);
+  console.log(useContext(UserContext));
 
   async function loginUser(e) {
     e.preventDefault();
     try {
-      const response = await axios.post("/login", { email, password });
-      setUser(response.data);
+      const { data } = await axios.post("/login", { email, password });
+      setUser(data);
+      console.log(data);
       alert("Login Successfully");
       setRedirect(true);
     } catch (error) {
@@ -43,7 +45,7 @@ export default function LoginPage() {
           />
           <input
             className="w-full border rounded-full my-1 py-2 px-4"
-            type="passwoed"
+            type="password"
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

@@ -1,5 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "./UserContext";
+
 export default function Header() {
+  const { user } = useContext(UserContext);
+
   return (
     <div>
       <header className="flex justify-between">
@@ -64,6 +69,7 @@ export default function Header() {
               clip-rule="evenodd"
             />
           </svg>
+          {!!user && <div>{user.name}</div>}
         </Link>
       </header>
     </div>

@@ -6,12 +6,14 @@ require("dotenv").config();
 const User = require("./models/User.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
-// middlewares
 const secret = bcrypt.genSaltSync(10);
 const jwtSecret = "neujndewjdmnkewmdwekd";
 
+// middlewares
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
@@ -66,6 +68,11 @@ app.post("/login", async (req, res) => {
   } else {
     res.json("user not found");
   }
+});
+
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  res.json({ token });
 });
 
 // listen
